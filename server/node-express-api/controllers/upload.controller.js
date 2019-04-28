@@ -1,7 +1,7 @@
 const multer = require('multer');
 const responseHandler = require('../helpers/responseHandler');
 
-const DIR = '../uploads/';
+const DIR = './uploads/';
 const upSingle = multer({dest: DIR}).single('file');
 
 module.exports = {

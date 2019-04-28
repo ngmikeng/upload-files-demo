@@ -1,0 +1,30 @@
+<div class="app-upload-file">
+  <h4 class="title">Upload Treatment Files</h4>
+  <hr class="hr-line">
+  <div class="upload-zone-container">
+    <div class="upload-zone" ng2FileDrop [ngClass]="{'drop-zone-over': pageState.dropZoneOver}"
+      (fileOver)="fileOverHandler($event)" [uploader]="uploader" (onFileDrop)="fileSelectChange($event)">
+      <div class="info">
+        <p>Drag & Drop file here to upload</p>
+        <small>or <a href="javascript:;" (click)="chooseFile($event, inputFileEl)">Choose files</a></small>
+        <input #inputFileEl type="file" style="display: none" ng2FileSelect [uploader]="uploader"
+          (onFileSelected)="fileSelectChange($event)" />
+      </div>
+    </div>
+  </div>
+  <ul class="preview-files">
+    <li *ngFor="let item of uploader.queue">
+      <h6>{{ item?.file?.name }}</h6>
+      <small *ngIf="uploader.options.isHTML5">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</small>
+      <ngb-progressbar
+        *ngIf="pageState.uploadStatus === uploadStatusCode.uploading  || pageState.uploadStatus === uploadStatusCode.succeed"
+        type="success" [showValue]="true" [striped]="true"
+        [animated]="pageState.uploadStatus === uploadStatusCode.uploading" [value]="pageState.uploadProgress">
+      </ngb-progressbar>
+      <ngb-progressbar *ngIf="pageState.uploadStatus === uploadStatusCode.failed" type="danger" [value]="100"
+        [striped]="true">
+        Failed
+      </ngb-progressbar>
+    </li>
+  </ul>
+</div>

@@ -16,6 +16,9 @@ export class UploadsService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.apiService.postFile(`${path}`, formData);
+    return this.apiService.postFile(`${path}`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 }
